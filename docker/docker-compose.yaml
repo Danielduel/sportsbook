@@ -1,0 +1,28 @@
+services:
+  sportsbook:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    image: sportsbook-next
+    volumes:
+      - ../sportsbook/app/:/app/sportsbook/app/
+      - ../sportsbook/public/:/app/sportsbook/public/
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+  storybook:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    image: sportsbook-next
+    volumes:
+      - ../sportsbook/app/:/app/sportsbook/app/
+      - ../sportsbook/public/:/app/sportsbook/public/
+      - ../sportsbook/stories/:/app/sportsbook/stories/
+      - ../sportsbook/.storybook/:/app/sportsbook/.storybook/
+    ports:
+      - '6006:6006'
+    environment:
+      NODE_ENV: development
+    command: yarn storybook 
