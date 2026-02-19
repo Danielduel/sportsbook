@@ -1,7 +1,12 @@
-import { FC, PropsWithChildren } from "react";
+"use client";
+
+import { FC, PropsWithChildren, useCallback, useMemo } from "react";
 import { Bet } from "./Bet";
 import { TrashIcon } from "../icons/Trash";
 import classNames from "classnames";
+import { Chevron } from "../icons/Chevron";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { toggle, selectExpanded } from "../application-shell/ApplicationShell.slice";
 
 type CouponControlsTabItemProps = {
   active?: boolean;
@@ -72,23 +77,40 @@ const CouponControls: FC = () => {
   );
 }
 
+const CouponHeader: FC = () => {
+  const expanded = useAppSelector(selectExpanded);
+  const dispatch = useAppDispatch();
+  const _toggle = useCallback(() => dispatch(toggle()), [dispatch]);
+  const toggleChevronClassName = useMemo(() => classNames("h-5 fill-white inline-block", {
+    "rotate-270": !expanded,
+    "rotate-90": expanded
+  }), [expanded]);
+
+  return (
+    <div className="uppercase text-xl desktop:text-lg text-text-primary bg-background-primary text-center py-2">
+      Kupon&nbsp;
+      <span className="text-text-secondary">
+        (3)
+      </span>
+      <button className="absolute right-20 desktop:hidden" onClick={_toggle}>
+        <Chevron className={toggleChevronClassName} />
+      </button>
+      <button className="absolute right-7">
+        <TrashIcon className="h-5 fill-white inline-block" />
+      </button>
+    </div>
+  );
+}
+
 export const Coupon: FC = () => {
   return (
     <div className="desktop:h-full">
-      <div className="desktop:h-dvh p-2.5 desktop:sticky desktop:top-0">
+      <div className="desktop:h-dvh max-desktop:h-dvh p-2.5 desktop:sticky desktop:top-0">
         <div className="overflow-hidden rounded-lg border border-border-modal bg-background-modal flex flex-col h-full">
-          <div className="uppercase text-xl desktop:text-lg text-text-primary bg-background-primary text-center py-2">
-            Kupon&nbsp;
-            <span className="text-text-secondary">
-              (3)
-            </span>
-            <button className="absolute right-7">
-              <TrashIcon className="h-5 fill-white inline-block" />
-            </button>
-          </div>
+          <CouponHeader />
           <div className="overflow-auto flex-1">
             <div className="flex flex-col p-1 gap-1 text-text-control-fade bg-background-control-fade">
-              {([0, 1]).map(() => <Bet />)}
+              {([0, 1, 1, 2, 3, 4, 2, 3, 4, 5, 6, 6,]).map((_, i) => <Bet key={i} />)}
             </div>
           </div>
           <div className="shrink-0 w-full">

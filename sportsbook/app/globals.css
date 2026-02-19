@@ -25,6 +25,10 @@
   --breakpoint-desktop: 700px;
 }
 
+button {
+  cursor: pointer;
+}
+
 :root {
   color: var(--color-text-main);
   font-optical-sizing: auto;

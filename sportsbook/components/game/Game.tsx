@@ -1,5 +1,4 @@
-import classNames from "classnames";
-import type { FC } from "react";
+import { memo, type FC } from "react";
 import { Lineup } from '../lineup/Lineup';
 import { Chevron } from "../icons/Chevron";
 
@@ -23,3 +22,4 @@ export const Game: FC = () => {
     </section>
   );
 }
+
