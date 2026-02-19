@@ -6,12 +6,22 @@
   --color-text-primary: #ffffff;
   --color-text-accent: #1b1863;
   --color-text-main: #1b1863;
-  --color-text-hightlight: #ffffff;
+  --color-text-highlight: #ffffff;
+  --color-text-secondary: #ffc457;
+  --color-text-control-fade: #6f6ea1;
+
 
   --color-background-primary: #1b1863;
   --color-background-accent: #f7f7ff;
   --color-background-main: #ffffff;
   --color-background-highlight: #474681;
+  --color-background-modal: #f8f7ff;
+  --color-background-control-fade: #f0f0ff;
+
+  --color-border-modal: #ccced6;
+  --color-border-fade: #f1f0ff;
+
+  --text-2xs: 0.65rem;
 }
 
 :root {
