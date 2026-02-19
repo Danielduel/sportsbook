@@ -5,7 +5,7 @@ import { Chevron } from "../icons/Chevron";
 
 export const Game: FC = () => {
   return (
-    <section className="bg-background-main flex flex-col w-full">
+    <section className="bg-background-main flex flex-col w-full m-2.5">
       <div className="bg-background-primary text-text-primary rounded-2xl p-4 flex items-center">
         <div className="flex-1">
           <i className="icon-soccer text-green-500" /> Piłka nożna

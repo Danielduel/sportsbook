@@ -30,3 +30,7 @@
   font-optical-sizing: auto;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}

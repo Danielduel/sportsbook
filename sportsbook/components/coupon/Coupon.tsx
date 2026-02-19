@@ -74,23 +74,27 @@ const CouponControls: FC = () => {
 
 export const Coupon: FC = () => {
   return (
-    <div className="overflow-hidden rounded border border-border-modal bg-background-modal flex flex-col h-full">
-      <div className="uppercase text-lg text-text-primary bg-background-primary w-full text-center py-2">
-        Kupon&nbsp;
-        <span className="text-text-secondary">
-          (3)
-        </span>
-        <button className="absolute right-7">
-          <TrashIcon className="h-5 fill-white inline-block" />
-        </button>
-      </div>
-      <div className="overflow-auto flex-1">
-        <div className="flex flex-col p-1 gap-1 text-text-control-fade bg-background-control-fade">
-          {([0, 1]).map(() => <Bet />)}
+    <div className="h-full">
+      <div className="h-dvh p-2.5 sticky top-0">
+        <div className="overflow-hidden rounded-lg border border-border-modal bg-background-modal flex flex-col h-full">
+          <div className="uppercase text-lg text-text-primary bg-background-primary text-center py-2">
+            Kupon&nbsp;
+            <span className="text-text-secondary">
+              (3)
+            </span>
+            <button className="absolute right-7">
+              <TrashIcon className="h-5 fill-white inline-block" />
+            </button>
+          </div>
+          <div className="overflow-auto flex-1">
+            <div className="flex flex-col p-1 gap-1 text-text-control-fade bg-background-control-fade">
+              {([0, 1]).map(() => <Bet />)}
+            </div>
+          </div>
+          <div className="shrink-0 w-full">
+            <CouponControls />
+          </div>
         </div>
-      </div>
-      <div className="shrink-0 w-full">
-        <CouponControls />
       </div>
     </div>
   )
