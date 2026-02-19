@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "sportsfont/css/sports.css";
 
 @theme {
@@ -22,12 +21,75 @@
   --color-border-fade: #f1f0ff;
 
   --text-2xs: 0.65rem;
+
+  --breakpoint-desktop: 700px;
 }
 
 :root {
   color: var(--color-text-main);
-  font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
+}
+
+@media screen and (max-width: 350px) {
+  :root {
+    font-size: 8px;
+  }
+}
+
+@media screen and (min-width: 350px) {
+  :root {
+    font-size: 11px;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+/* END OF MOBILE */
+
+@media screen and (min-width: 700px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1199px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1850px) {
+  :root {
+    font-size: 20px;
+  }
 }
 
 body {

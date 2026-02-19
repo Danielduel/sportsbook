@@ -5,10 +5,10 @@ import { Chevron } from "../icons/Chevron";
 
 export const Game: FC = () => {
   return (
-    <section className="bg-background-main flex flex-col w-full m-2.5">
-      <div className="bg-background-primary text-text-primary rounded-2xl p-4 flex items-center">
+    <section className="bg-background-main flex flex-col w-full desktop:m-2.5 overflow-auto">
+      <div className="bg-background-primary text-text-primary desktop:rounded-2xl p-4 flex items-center sticky top-0">
         <div className="flex-1">
-          <i className="icon-soccer text-green-500" /> Piłka nożna
+          <i className="icon-soccer text-green-500" />&nbsp;Piłka nożna
         </div>
           <div className="py-2 px-8 bg-background-highlight text-text-hightlight overflow-hidden h-8 leading-[2rem] box-content rounded-xl w-full max-w-40 text-justify inline-block after:w-full after:inline-block after:content[''] ">
             1 x 2

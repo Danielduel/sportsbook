@@ -74,10 +74,10 @@ const CouponControls: FC = () => {
 
 export const Coupon: FC = () => {
   return (
-    <div className="h-full">
-      <div className="h-dvh p-2.5 sticky top-0">
+    <div className="desktop:h-full">
+      <div className="desktop:h-dvh p-2.5 desktop:sticky desktop:top-0">
         <div className="overflow-hidden rounded-lg border border-border-modal bg-background-modal flex flex-col h-full">
-          <div className="uppercase text-lg text-text-primary bg-background-primary text-center py-2">
+          <div className="uppercase text-xl desktop:text-lg text-text-primary bg-background-primary text-center py-2">
             Kupon&nbsp;
             <span className="text-text-secondary">
               (3)
