@@ -6,8 +6,8 @@ import * as Lineup from "../components/lineup/Lineup.slice";
 import * as Match from "../components/match/Match.slice";
 import * as Odds from "../components/odds/Odds.slice";
 import { PayloadAction } from '@reduxjs/toolkit';
+import { betSaga } from '@/components/coupon/Bet.slice';
 
-type Outcome = Backend_GamesT[number]["eventGames"][number]["outcomes"][number];
 export function* randomFluctuation(oldData: Backend_GamesT) {
   const data = produce(oldData, draft => {
     const allOutcomes = draft
@@ -48,6 +48,7 @@ export function* updateBackendData(data: PayloadAction<Backend_GamesT>) {
 
 export default function* rootSaga() {
   yield takeLatest(set.type, updateBackendData);
+  yield betSaga();
 
   yield all([]);
 }

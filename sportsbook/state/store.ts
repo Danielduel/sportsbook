@@ -9,6 +9,7 @@ import game from "@/components/game/Game.slice"
 import lineup from "@/components/lineup/Lineup.slice"
 import match from "@/components/match/Match.slice"
 import odds from "@/components/odds/Odds.slice"
+import bet from "@/components/coupon/Bet.slice"
 import backend_games, { set as initialize } from './backend-games'
 
 export const makeStore = () => {
@@ -23,6 +24,7 @@ export const makeStore = () => {
       lineup,
       match,
       odds,
+      bet,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware, logger),
     devTools: process.env.NODE_ENV !== 'production',
