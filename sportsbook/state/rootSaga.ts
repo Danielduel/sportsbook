@@ -28,7 +28,7 @@ export function* randomFluctuation(oldData: Backend_GamesT) {
 }
 
 export function* randomFluctuationLoop(data: Backend_GamesT) {
-  while (true) {
+  while (typeof window !== "undefined") {
     yield delay(Math.random() * 10000);
     yield call(randomFluctuation, data);
   }
