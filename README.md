@@ -6,3 +6,5 @@
 4. Run the project using `yarn start`
 
 The coupon features aren't finished.
+
+The more feature-complete version is available on dev branch.
