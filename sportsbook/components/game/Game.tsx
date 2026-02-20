@@ -2,7 +2,7 @@ import { PropsWithChildren, type FC } from "react";
 import Lineup, { LineupList } from '../lineup/Lineup';
 import { Chevron } from "../icons/Chevron";
 import { useAppSelector } from "@/state/hooks";
-import { selectGame } from "./Game.slice";
+import { selectGame, selectKeys } from "./Game.slice";
 import { selectLineupAddressesForGame } from "../lineup/Lineup.slice";
 
 type GameProps = {
@@ -61,6 +61,12 @@ const _Game: FC<{ gameType: number }> = ({ gameType }) => {
       <LineupList lineupAddress={lineupsForGame} /> 
     </Game>
   );
+}
+
+export const GameList = () => {
+  const gameTypes = useAppSelector(selectKeys);
+
+  return gameTypes.map(gameType => <_Game gameType={+gameType} key={gameType} />);
 }
 
 export default _Game;

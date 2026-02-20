@@ -1,7 +1,7 @@
 "use client";
 
-import { FC, PropsWithChildren, useCallback, useMemo } from "react";
-import { Bet } from "./Bet";
+import { Children, FC, PropsWithChildren, useCallback, useMemo } from "react";
+import { Bet, BetList } from "./Bet";
 import { TrashIcon } from "../icons/Trash";
 import classNames from "classnames";
 import { Chevron } from "../icons/Chevron";
@@ -102,7 +102,7 @@ const CouponHeader: FC = () => {
   );
 }
 
-export const Coupon: FC = () => {
+export const Coupon: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="desktop:h-full">
       <div className="desktop:h-dvh max-desktop:h-dvh p-2.5 desktop:sticky desktop:top-0">
@@ -110,7 +110,7 @@ export const Coupon: FC = () => {
           <CouponHeader />
           <div className="overflow-auto flex-1">
             <div className="flex flex-col p-1 gap-1 text-text-control-fade bg-background-control-fade">
-              {([0, 1, 1, 2, 3, 4, 2, 3, 4, 5, 6, 6,]).map((_, i) => <Bet key={i} />)}
+              {children} 
             </div>
           </div>
           <div className="shrink-0 w-full">
@@ -122,3 +122,10 @@ export const Coupon: FC = () => {
   )
 }
 
+const _Coupon = () => (
+  <Coupon>
+    <BetList />
+  </Coupon>
+);
+
+export default _Coupon;

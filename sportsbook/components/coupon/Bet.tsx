@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { CrossIcon } from "../icons/Cross";
+import { useAppSelector } from "@/state/hooks";
+import { selectBetByGameId, selectKeys } from "./Bet.slice";
 
 const BetDivider = () => <hr className="border-border-fade my-2" />
 
@@ -24,5 +26,17 @@ export const Bet: FC = () => {
       </div>
     </div>
   )
+}
+
+const _Bet: FC<{ betKey: number }> = ({ betKey }) => {
+  const betData = useAppSelector(selectBetByGameId(betKey));
+
+  return <Bet />
+}
+
+export const BetList: FC = () => {
+  const betKeys = useAppSelector(selectKeys);
+
+  return betKeys.map(betKey => <_Bet betKey={+betKey} key={betKey} />)
 }
 
