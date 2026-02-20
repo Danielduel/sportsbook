@@ -1,7 +1,6 @@
 import { produce } from "immer";
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '@/state/store'
-import { Backend_GamesT } from '@/state/backend-games';
 import { put, takeLatest } from "redux-saga/effects";
 import { appSelect } from "@/state/hooks";
 
@@ -94,7 +93,7 @@ export function* betSaga() {
   yield takeLatest(betSlice.actions.handleOddsClick.type, handleOddsClickSaga);
 }
 
-export const { handleOddsClick } = betSlice.actions
+export const { handleOddsClick, removeByGameId } = betSlice.actions
 
 export const root = (state: RootState) => state.bet.items;
 export const selectKeys = createSelector([root], (items) => Object.keys(items));

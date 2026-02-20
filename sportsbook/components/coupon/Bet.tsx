@@ -1,14 +1,16 @@
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { CrossIcon } from "../icons/Cross";
-import { useAppSelector } from "@/state/hooks";
-import { BetItem, selectBetByGameId, selectKeys } from "./Bet.slice";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { BetItem, removeByGameId, selectBetByGameId, selectKeys } from "./Bet.slice";
 import { MatchTimeFormat } from "../match/Match";
 
 const BetDivider = () => <hr className="border-border-fade my-2" />
 
-type BetProps = Pick<BetItem, "outcomeName" | "odds" | "eventName" | "category1Name" | "category2Name" | "category3Name" | "gameName" | "eventStart">
+type BetProps = Pick<BetItem, "outcomeName" | "odds" | "eventName" | "category1Name" | "category2Name" | "category3Name" | "gameName" | "eventStart"> & {
+  handleRemove: () => void;
+}
 
-export const Bet: FC<BetProps> = ({ outcomeName, eventStart, gameName, category1Name, category2Name, category3Name, eventName, odds }) => {
+export const Bet: FC<BetProps> = ({ outcomeName, eventStart, gameName, category1Name, category2Name, category3Name, eventName, odds, handleRemove }) => {
   const [day, , month, , year, , hour, , minute] = useMemo(() => {
     return MatchTimeFormat.formatToParts(eventStart);
   }, [eventStart]).map(x => x.value)
@@ -18,7 +20,7 @@ export const Bet: FC<BetProps> = ({ outcomeName, eventStart, gameName, category1
         <span className="font-bold">{outcomeName}</span>
         <span className="float-end">
           <span className="font-bold text-text-primary bg-background-primary py-1 px-3 rounded-2xl">{odds.toFixed(2)}</span>
-          <button className="font-bold ml-1">
+          <button className="font-bold ml-1" onClick={handleRemove}>
             <CrossIcon className="h-3 inline-block fill-text-main" />
           </button>
         </span>
@@ -36,6 +38,8 @@ export const Bet: FC<BetProps> = ({ outcomeName, eventStart, gameName, category1
 
 const _Bet: FC<{ betKey: number }> = ({ betKey }) => {
   const betData = useAppSelector(selectBetByGameId(betKey));
+  const dispatch = useAppDispatch();
+  const handleRemove = useCallback(() => dispatch(removeByGameId(betData.gameId)), [ betData.gameId ])
 
   return (
     <Bet
@@ -47,6 +51,7 @@ const _Bet: FC<{ betKey: number }> = ({ betKey }) => {
       eventName={betData.eventName}
       gameName={betData.gameName}
       eventStart={betData.eventStart}
+      handleRemove={handleRemove}
     />
   );
 };
