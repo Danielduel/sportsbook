@@ -5,7 +5,7 @@ import { Backend_GamesT } from '@/state/backend-games';
 import { put, takeLatest } from "redux-saga/effects";
 import { appSelect } from "@/state/hooks";
 
-type BetItem = {
+export type BetItem = {
   gameId: number;
   outcomeId: number;
 
