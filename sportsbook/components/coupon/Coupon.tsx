@@ -54,8 +54,6 @@ const CouponControlInput: FC = () => {
 const CouponControls: FC = () => {
   const odds = useAppSelector(accululateOdds);
   const maxWin = useAppSelector(accululateMaxWin);
-  
-  console.log({ odds, maxWin });
 
   return (
     <div>
