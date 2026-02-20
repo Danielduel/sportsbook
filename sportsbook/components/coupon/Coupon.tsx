@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { Chevron } from "../icons/Chevron";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { toggle, selectExpanded } from "../application-shell/ApplicationShell.slice";
+import { accululateMaxWin, accululateOdds, accululateStake } from "./CouponControl.slice";
 
 type CouponControlsTabItemProps = {
   active?: boolean;
@@ -41,15 +42,21 @@ const CouponControlRow: FC<PropsWithChildren> = ({ children }) => {
 }
 
 const CouponControlInput: FC = () => {
+  const stake = useAppSelector(accululateStake);
   return (
     <label htmlFor="bet_amount" className="text-text-main border border-border-fade rounded-2xl p-2.5">
-      <input id="bet_amount" className="focus:outline-0 font-normal" />
+      <input id="bet_amount" className="focus:outline-0 font-normal" type="number" value={stake / 100} />
       <label htmlFor="bet_amount" className="text-text-control-fade">EUR</label>
     </label>
   )
 }
 
 const CouponControls: FC = () => {
+  const odds = useAppSelector(accululateOdds);
+  const maxWin = useAppSelector(accululateMaxWin);
+  
+  console.log({ odds, maxWin });
+
   return (
     <div>
       <CouponControlsTabs />
@@ -61,11 +68,11 @@ const CouponControls: FC = () => {
           </CouponControlRow>
           <CouponControlRow>
             <span>Kurs całkowity</span>
-            <span className="text-text-primary bg-background-primary px-2 py-1 rounded-xl font-bold">10.40</span>
+            <span className="text-text-primary bg-background-primary px-2 py-1 rounded-xl font-bold">{odds.toFixed(2)}</span>
           </CouponControlRow>
           <CouponControlRow>
             <span>Możliwa wygrana</span>
-            <span className="font-bold">€260.00</span>
+            <span className="font-bold">€{(maxWin / 100).toFixed(2)}</span>
           </CouponControlRow>
         </div>
         <div className="w-full p-2.5 relative">
