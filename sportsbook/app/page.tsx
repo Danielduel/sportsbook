@@ -9,13 +9,10 @@ import { useAppSelector } from "@/state/hooks";
 export default function Home() {
   const gameTypes = useAppSelector(selectKeys);
 
-  gameTypes.map(gameType => <Game gameType={gameType} />)
-
-
   return (
     <ApplicationShell>
       <div>
-        <Game gameType={1} />
+        { gameTypes.map(gameType => <Game gameType={+gameType} key={gameType} />) }
       </div>
       <Coupon />
     </ApplicationShell>
