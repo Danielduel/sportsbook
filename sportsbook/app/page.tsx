@@ -8,9 +8,9 @@ export default function Home() {
 
   return (
     <ApplicationShell>
-      <div>
+      <section className="bg-background-main flex flex-col w-full desktop:m-2.5 overflow-auto">
         <GameList />
-      </div>
+      </section>
       <Coupon />
     </ApplicationShell>
   );

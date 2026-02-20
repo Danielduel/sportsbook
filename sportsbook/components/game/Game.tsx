@@ -25,8 +25,8 @@ export const Game: FC<PropsWithChildren<GameProps>> = ({
   children
 }) => {
   return (
-    <section className="bg-background-main flex flex-col w-full desktop:m-2.5 overflow-auto">
-      <div className="bg-background-primary text-text-primary desktop:rounded-2xl p-4 flex items-center sticky top-0">
+    <>
+      <div className="bg-background-primary text-text-primary desktop:rounded-2xl p-4 flex items-center">
         <div className="flex-1">
           <i className="icon-soccer text-green-500" />&nbsp;{category1Name}
         </div>
@@ -40,7 +40,7 @@ export const Game: FC<PropsWithChildren<GameProps>> = ({
       <div className="flex flex-col py-1">
         {children}
       </div>
-    </section>
+    </>
   );
 }
 
@@ -58,7 +58,7 @@ const _Game: FC<{ gameType: number }> = ({ gameType }) => {
       gameName={gameData.gameName}
       category1Name={gameData.category1Name}
     >
-      <LineupList lineupAddress={lineupsForGame} /> 
+      <LineupList lineupAddress={lineupsForGame} />
     </Game>
   );
 }
