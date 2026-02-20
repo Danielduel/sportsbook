@@ -1,7 +1,8 @@
 "use client";
 
-import { Children, FC, PropsWithChildren, useCallback, useMemo } from "react";
-import { Bet, BetList } from "./Bet";
+import { FC, PropsWithChildren, useCallback, useMemo } from "react";
+import { BetList } from "./Bet";
+import { clear, selectBetCount } from "./Bet.slice"
 import { TrashIcon } from "../icons/Trash";
 import classNames from "classnames";
 import { Chevron } from "../icons/Chevron";
@@ -77,8 +78,20 @@ const CouponControls: FC = () => {
   );
 }
 
+const CouponHeaderClearButton: FC = () => {
+  const dispatch = useAppDispatch();
+  const handleClick = useCallback(() => dispatch(clear()), []);
+
+  return (
+    <button className="absolute right-7" onClick={handleClick}>
+      <TrashIcon className="h-5 fill-white inline-block" />
+    </button>
+  );
+}
+
 const CouponHeader: FC = () => {
   const expanded = useAppSelector(selectExpanded);
+  const betCount = useAppSelector(selectBetCount);
   const dispatch = useAppDispatch();
   const _toggle = useCallback(() => dispatch(toggle()), [dispatch]);
   const toggleChevronClassName = useMemo(() => classNames("h-5 fill-white inline-block", {
@@ -90,14 +103,12 @@ const CouponHeader: FC = () => {
     <div className="uppercase text-xl desktop:text-lg text-text-primary bg-background-primary text-center py-2">
       Kupon&nbsp;
       <span className="text-text-secondary">
-        (3)
+        ({betCount})
       </span>
       <button className="absolute right-20 desktop:hidden" onClick={_toggle}>
         <Chevron className={toggleChevronClassName} />
       </button>
-      <button className="absolute right-7">
-        <TrashIcon className="h-5 fill-white inline-block" />
-      </button>
+      <CouponHeaderClearButton />
     </div>
   );
 }
@@ -110,7 +121,7 @@ export const Coupon: FC<PropsWithChildren> = ({ children }) => {
           <CouponHeader />
           <div className="overflow-auto flex-1">
             <div className="flex flex-col p-1 gap-1 text-text-control-fade bg-background-control-fade">
-              {children} 
+              {children}
             </div>
           </div>
           <div className="shrink-0 w-full">

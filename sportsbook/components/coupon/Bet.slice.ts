@@ -30,7 +30,10 @@ export const betSlice = createSlice({
   name: 'bet',
   initialState,
   reducers: {
-    handleOddsClick: (action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
+    handleOddsClick: (state, action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
+    clear: (state) => produce(state, draft => {
+      draft.items = {};
+    }),
     addById: (state, action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
     add: (state, action: PayloadAction<BetItem>) => produce(state, (draft) => {
       draft.items[action.payload.gameId] = { ...action.payload };
@@ -93,10 +96,11 @@ export function* betSaga() {
   yield takeLatest(betSlice.actions.handleOddsClick.type, handleOddsClickSaga);
 }
 
-export const { handleOddsClick, removeByGameId } = betSlice.actions
+export const { handleOddsClick, removeByGameId, clear } = betSlice.actions
 
 export const root = (state: RootState) => state.bet.items;
 export const selectKeys = createSelector([root], (items) => Object.keys(items));
+export const selectBetCount = createSelector([ selectKeys ], (keys) => keys.length);
 export const selectBetByGameId = (gameId: number) => createSelector([root], (items) => items[gameId]);
 export const selectBetOutcomeIdByGameId = (gameId: number) => createSelector([selectBetByGameId(gameId)], (item) => item?.outcomeId);
 
