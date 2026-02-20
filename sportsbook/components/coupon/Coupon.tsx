@@ -1,14 +1,14 @@
 "use client";
 
-import { FC, PropsWithChildren, useCallback, useMemo } from "react";
+import { FC, ChangeEventHandler, PropsWithChildren, useCallback, useMemo } from "react";
 import { BetList } from "./Bet";
-import { clear, selectBetCount } from "./Bet.slice"
+import { betSlice, clear, selectBetCount } from "./Bet.slice"
 import { TrashIcon } from "../icons/Trash";
 import classNames from "classnames";
 import { Chevron } from "../icons/Chevron";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { toggle, selectExpanded } from "../application-shell/ApplicationShell.slice";
-import { accululateMaxWin, accululateOdds, accululateStake } from "./CouponControl.slice";
+import { accululateMaxWin, accululateOdds, accululateStake, couponControlSlice } from "./CouponControl.slice";
 
 type CouponControlsTabItemProps = {
   active?: boolean;
@@ -43,9 +43,13 @@ const CouponControlRow: FC<PropsWithChildren> = ({ children }) => {
 
 const CouponControlInput: FC = () => {
   const stake = useAppSelector(accululateStake);
+  const dispatch = useAppDispatch();
+  const handleChange: ChangeEventHandler<HTMLInputElement, HTMLInputElement> = useCallback((update) => {
+    dispatch(couponControlSlice.actions.setStake(+update.target.value));
+  }, [ dispatch ]);
   return (
     <label htmlFor="bet_amount" className="text-text-main border border-border-fade rounded-2xl p-2.5">
-      <input id="bet_amount" className="focus:outline-0 font-normal" type="number" value={stake / 100} />
+      <input id="bet_amount" className="focus:outline-0 font-normal" type="number" value={(stake / 100).toFixed(2)} onChange={handleChange} />
       <label htmlFor="bet_amount" className="text-text-control-fade">EUR</label>
     </label>
   )

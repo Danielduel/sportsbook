@@ -29,9 +29,12 @@ export const couponControlSlice = createSlice({
   name: 'couponControl',
   initialState,
   reducers: {
-    setStake: (state, action: PayloadAction<string>) => produce(state, (draft) => {
+    setStake: (state, action: PayloadAction<number>) => produce(state, (draft) => {
+      let value = action.payload;
       // todo normalize
-      draft.accumulate.stake = ~~(+action.payload * 100);
+      if (!value) value = 0; 
+      value *= 100;
+      draft.accumulate.stake = value;
     }),
     setState: (state, action: PayloadAction<Partial<CouponControlState>>) => produce(state, (draft) => {
       return Object.assign(draft, action.payload);
