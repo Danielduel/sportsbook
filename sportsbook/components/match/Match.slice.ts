@@ -16,6 +16,7 @@ export type MatchItem = {
   eventParticipant2: string;
 
   gameId: number;
+  gamesCount: number;
 }
 
 export type WithMatchAddress = Pick<MatchItem, "gameType" | "category1Id" | "category2Id" | "category3Id" | "eventId">;
@@ -56,6 +57,7 @@ export const matchSlice = createSlice({
             draft.items[stateAddress].eventParticipant2 = participant2;
             draft.items[stateAddress].eventStart = x.eventStart;
             draft.items[stateAddress].gameId = game.gameId;
+            draft.items[stateAddress].gamesCount = x.gamesCount;
           } else {
             draft.items[stateAddress] = {
               gameType: game.gameType,
@@ -67,6 +69,7 @@ export const matchSlice = createSlice({
               eventParticipant2: participant2,
               eventStart: x.eventStart,
               gameId: game.gameId,
+              gamesCount: x.gamesCount,
             };
           }
         });

@@ -19,10 +19,10 @@ const Cell: FC<CellProps> = ({ children, fullWidth }) => {
   );
 }
 
-export const ExtraGames: FC = () => {
+export const ExtraGames: FC<{ gamesCount: number; }> = ({ gamesCount }) => {
   return (
     <button className="not-first:ml-2 text-sm py-2 px-2 inline-block bg-background-main border border-background-accent rounded box-border w-12 h-12">
-      59+
+      {gamesCount}+
     </button>
   )
 }
@@ -39,7 +39,8 @@ export const Match: FC<PropsWithChildren<MatchProps>> = ({
   children,
   eventStart,
   eventParticipant1,
-  eventParticipant2
+  eventParticipant2,
+  gamesCount
 }) => {
   const [day, , month, , year, , hour, , minute] = useMemo(() => {
     return MatchTimeFormat.formatToParts(eventStart);
@@ -61,7 +62,7 @@ export const Match: FC<PropsWithChildren<MatchProps>> = ({
       </Cell>
       <Cell>
         {children}
-        <ExtraGames />
+        <ExtraGames gamesCount={gamesCount} />
       </Cell>
     </li>
   );
@@ -72,13 +73,13 @@ const _Match: FC<{ matchAddress: string; }> = ({ matchAddress }) => {
   const oddsForMatch = useAppSelector(selectOddsAddressesForMatch(matchData));
 
   return (
-    <Match {...matchData}> 
+    <Match {...matchData}>
       <OddsList oddsAddress={oddsForMatch} />
     </Match>
   );
 }
 
-export const MatchList: FC<{matchAddress: string[]}> = ({ matchAddress }) => {
+export const MatchList: FC<{ matchAddress: string[] }> = ({ matchAddress }) => {
   return matchAddress.map((x) => <_Match matchAddress={x} key={x} />);
 }
 
