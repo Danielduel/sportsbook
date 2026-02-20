@@ -40,7 +40,6 @@ export const couponControlSlice = createSlice({
 })
 
 function* postUpdate() {
-  console.log("update")
   const items = yield* appSelect(state => state.bet.items);
   const control = yield* appSelect(state => state.couponControl);
   const totalOdds = Object.values(items).reduce((prev, curr) => prev += curr.odds, 0);
