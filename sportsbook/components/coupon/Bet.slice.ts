@@ -31,12 +31,34 @@ export const betSlice = createSlice({
   name: 'bet',
   initialState,
   reducers: {
+    handleOddsClick: (action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
     addById: (state, action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
     add: (state, action: PayloadAction<BetItem>) => produce(state, (draft) => {
       draft.items[action.payload.gameId] = { ...action.payload };
-    })
+    }),
+    removeByGameId: (state, action: PayloadAction<number>) => produce(state, (draft) => {
+      delete draft.items[action.payload];
+    }),
   },
 })
+
+function* handleOddsClickSaga(action: PayloadAction<{ gameId: number; outcomeId: number; }>) {
+  const items = yield* appSelect(state => state.bet.items);
+  const { payload: { gameId, outcomeId } } = action;
+  if (!(gameId in items)) {
+    // create
+    yield put(betSlice.actions.addById(action.payload));
+    return;
+  };
+  const item = items[gameId]!;
+  if (!(item.outcomeId === outcomeId)) {
+    // as update
+    yield put(betSlice.actions.addById(action.payload));
+    return;
+  }
+  // remove 
+  yield put(betSlice.actions.removeByGameId(gameId));
+}
 
 function* addByIdBetSaga(action: PayloadAction<{ gameId: number; outcomeId: number; }>) {
   const { gameId, outcomeId } = action.payload;
@@ -69,13 +91,15 @@ function* addByIdBetSaga(action: PayloadAction<{ gameId: number; outcomeId: numb
 
 export function* betSaga() {
   yield takeLatest(betSlice.actions.addById.type, addByIdBetSaga);
+  yield takeLatest(betSlice.actions.handleOddsClick.type, handleOddsClickSaga);
 }
 
-export const { add } = betSlice.actions
+export const { handleOddsClick } = betSlice.actions
 
 export const root = (state: RootState) => state.bet.items;
 export const selectKeys = createSelector([root], (items) => Object.keys(items));
-export const selectGame = (gameType: number) => createSelector([root], (items) => items[gameType]);
+export const selectBetByGameId = (gameId: number) => createSelector([root], (items) => items[gameId]);
+export const selectBetOutcomeIdByGameId = (gameId: number) => createSelector([selectBetByGameId(gameId)], (item) => item?.outcomeId);
 
 export default betSlice.reducer
 
