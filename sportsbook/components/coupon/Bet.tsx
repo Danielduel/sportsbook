@@ -1,10 +1,9 @@
-import { FC, memo } from "react";
+import { FC } from "react";
 import { CrossIcon } from "../icons/Cross";
 
 const BetDivider = () => <hr className="border-border-fade my-2" />
 
 export const Bet: FC = () => {
-  console.log("Bet Rerender")
   return (
     <div className="flex flex-col bg-background-main p-2 text-text-main border border-border-fade rounded text-xs px-2 py-3">
       <div className="">

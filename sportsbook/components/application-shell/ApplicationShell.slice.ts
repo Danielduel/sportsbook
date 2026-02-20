@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '@/state/store'
 
 export interface ApplicationShellState {
@@ -31,8 +31,8 @@ export const applicationShellSlice = createSlice({
 })
 
 export const { open, close, toggle } = applicationShellSlice.actions
-
-export const selectExpanded = (state: RootState) => state.applicationShell.expanded
+const root = (state: RootState) => state.applicationShell;
+export const selectExpanded = createSelector([ root ], (appShell) => appShell.expanded);
 
 export default applicationShellSlice.reducer
 

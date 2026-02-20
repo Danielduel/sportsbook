@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
+    "@types/redux-logger": "^3.0.13",
     "classnames": "^2.5.1",
     "country-flag-icons": "^1.6.13",
     "next": "16.1.6",
@@ -19,6 +20,8 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-redux": "^9.1.2",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.4.2",
     "sportsfont": "^1.1.1"
   },
   "devDependencies": {
