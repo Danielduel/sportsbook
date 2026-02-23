@@ -37,7 +37,7 @@ export const Odds: FC<OddsProps> = ({ odds, lastOdds, handleClick, isBetted }) =
   )
 }
 
-const _OddsItem: FC<{ oddsAddress: string; }> = ({ oddsAddress }) => {
+const OddsItemWithStore: FC<{ oddsAddress: string; }> = ({ oddsAddress }) => {
   const oddsData = useAppSelector(selectOdds(oddsAddress));
   const currentBetOutcomeId = useAppSelector(selectBetOutcomeIdByGameId(oddsData.gameId));
   const isBetted = currentBetOutcomeId === oddsData.outcomeId;
@@ -53,8 +53,8 @@ const _OddsItem: FC<{ oddsAddress: string; }> = ({ oddsAddress }) => {
 }
 
 export const OddsList: FC<{ oddsAddress: string[] }> = ({ oddsAddress }) => {
-  return oddsAddress.map(x => <_OddsItem oddsAddress={x} key={x} />)
+  return oddsAddress.map(x => <OddsItemWithStore oddsAddress={x} key={x} />)
 }
 
-export default _OddsItem;
+export default OddsItemWithStore;
 

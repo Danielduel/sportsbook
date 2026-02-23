@@ -30,11 +30,11 @@ export const betSlice = createSlice({
   name: 'bet',
   initialState,
   reducers: {
-    handleOddsClick: (state, action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
+    handleOddsClick: (_state, _action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
     clear: (state) => produce(state, draft => {
       draft.items = {};
     }),
-    addById: (state, action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
+    addById: (_state, _action: PayloadAction<{ gameId: number; outcomeId: number; }>) => { },
     add: (state, action: PayloadAction<BetItem>) => produce(state, (draft) => {
       draft.items[action.payload.gameId] = { ...action.payload };
     }),

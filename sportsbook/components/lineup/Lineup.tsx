@@ -1,6 +1,5 @@
-import classNames from "classnames";
 import type { FC, PropsWithChildren } from "react";
-import Match, { MatchList } from '../match/Match';
+import { MatchList } from '../match/Match';
 import { ES, GB_ENG } from 'country-flag-icons/react/3x2'
 import { LineupItem, selectLineup } from "./Lineup.slice";
 import { useAppSelector } from "@/state/hooks";
@@ -32,7 +31,7 @@ export const Lineup: FC<PropsWithChildren<LineupProps>> = ({
   );
 }
 
-const _Lineup: FC<{ lineupAddress: string }> = ({ lineupAddress }) => {
+const LineupWithStore: FC<{ lineupAddress: string }> = ({ lineupAddress }) => {
   const lineupData = useAppSelector(selectLineup(lineupAddress));
   const matchesForLineup = useAppSelector(selectMatchAddressesForLineup(lineupData));
   return (
@@ -43,8 +42,8 @@ const _Lineup: FC<{ lineupAddress: string }> = ({ lineupAddress }) => {
 }
 
 export const LineupList: FC<{ lineupAddress: string[] }> = ({ lineupAddress }) => {
-  return lineupAddress.map(x => <_Lineup lineupAddress={x} key={x} />)
+  return lineupAddress.map(x => <LineupWithStore lineupAddress={x} key={x} />)
 }
 
-export default _Lineup;
+export default LineupWithStore;
 

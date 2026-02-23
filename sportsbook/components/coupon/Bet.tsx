@@ -36,7 +36,7 @@ export const Bet: FC<BetProps> = ({ outcomeName, eventStart, gameName, category1
   )
 }
 
-const _Bet: FC<{ betKey: number }> = ({ betKey }) => {
+const BetWithStore: FC<{ betKey: number }> = ({ betKey }) => {
   const betData = useAppSelector(selectBetByGameId(betKey));
   const dispatch = useAppDispatch();
   const handleRemove = useCallback(() => dispatch(removeByGameId(betData.gameId)), [ betData.gameId ])
@@ -59,6 +59,6 @@ const _Bet: FC<{ betKey: number }> = ({ betKey }) => {
 export const BetList: FC = () => {
   const betKeys = useAppSelector(selectKeys);
 
-  return betKeys.map(betKey => <_Bet betKey={+betKey} key={betKey} />)
+  return betKeys.map(betKey => <BetWithStore betKey={+betKey} key={betKey} />)
 }
 

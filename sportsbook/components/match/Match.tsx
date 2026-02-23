@@ -2,7 +2,7 @@ import { useAppSelector } from "@/state/hooks";
 import classNames from "classnames";
 import { useMemo, type FC, type PropsWithChildren } from "react";
 import { MatchItem, selectMatch } from "./Match.slice";
-import OddsItem, { OddsList } from "../odds/Odds";
+import { OddsList } from "../odds/Odds";
 import { selectOddsAddressesForMatch } from "../odds/Odds.slice";
 
 type CellProps = PropsWithChildren<{
@@ -26,7 +26,7 @@ export const ExtraGames: FC<{ gamesCount: number; }> = ({ gamesCount }) => {
     </button>
   )
 }
-type MatchProps = MatchItem;
+type MatchProps = Pick<MatchItem, "eventStart" | "eventParticipant1" | "eventParticipant2" | "gamesCount">;
 export const MatchTimeFormat = new Intl.DateTimeFormat("pl-PL", {
   hour: "2-digit",
   minute: "2-digit",
@@ -37,10 +37,10 @@ export const MatchTimeFormat = new Intl.DateTimeFormat("pl-PL", {
 });
 export const Match: FC<PropsWithChildren<MatchProps>> = ({
   children,
+  gamesCount,
   eventStart,
   eventParticipant1,
   eventParticipant2,
-  gamesCount
 }) => {
   const [day, , month, , year, , hour, , minute] = useMemo(() => {
     return MatchTimeFormat.formatToParts(eventStart);
@@ -68,19 +68,25 @@ export const Match: FC<PropsWithChildren<MatchProps>> = ({
   );
 }
 
-const _Match: FC<{ matchAddress: string; }> = ({ matchAddress }) => {
+const MatchWithStore: FC<{ matchAddress: string; }> = ({ matchAddress }) => {
   const matchData = useAppSelector(selectMatch(matchAddress));
   const oddsForMatch = useAppSelector(selectOddsAddressesForMatch(matchData));
 
   return (
-    <Match {...matchData}>
+    <Match
+      gamesCount={matchData.gamesCount}
+      eventStart={matchData.eventStart}
+      eventParticipant1={matchData.eventParticipant1}
+      eventParticipant2={matchData.eventParticipant2}
+    >
       <OddsList oddsAddress={oddsForMatch} />
     </Match>
   );
 }
 
 export const MatchList: FC<{ matchAddress: string[] }> = ({ matchAddress }) => {
-  return matchAddress.map((x) => <_Match matchAddress={x} key={x} />);
+  return matchAddress.map((x) => <MatchWithStore matchAddress={x} key={x} />);
 }
 
-export default _Match;
+export default MatchWithStore;
+

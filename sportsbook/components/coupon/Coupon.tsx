@@ -2,7 +2,7 @@
 
 import { FC, ChangeEventHandler, PropsWithChildren, useCallback, useMemo } from "react";
 import { BetList } from "./Bet";
-import { betSlice, clear, selectBetCount } from "./Bet.slice"
+import { clear, selectBetCount } from "./Bet.slice"
 import { TrashIcon } from "../icons/Trash";
 import classNames from "classnames";
 import { Chevron } from "../icons/Chevron";
@@ -142,10 +142,10 @@ export const Coupon: FC<PropsWithChildren> = ({ children }) => {
   )
 }
 
-const _Coupon = () => (
+const CouponWithChildren = () => (
   <Coupon>
     <BetList />
   </Coupon>
 );
 
-export default _Coupon;
+export default CouponWithChildren;

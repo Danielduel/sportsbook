@@ -42,7 +42,7 @@ export const Game: FC<PropsWithChildren<GameProps>> = ({
   );
 }
 
-const _Game: FC<{ gameType: number }> = ({ gameType }) => {
+const GameWithStore: FC<{ gameType: number }> = ({ gameType }) => {
   const gameData = useAppSelector(selectGame(gameType));
   const lineupsForGame = useAppSelector(selectLineupAddressesForGame(gameType));
   const adaptedGameName = useMemo(() => {
@@ -66,8 +66,8 @@ const _Game: FC<{ gameType: number }> = ({ gameType }) => {
 export const GameList = () => {
   const gameTypes = useAppSelector(selectKeys);
 
-  return gameTypes.map(gameType => <_Game gameType={+gameType} key={gameType} />);
+  return gameTypes.map(gameType => <GameWithStore gameType={+gameType} key={gameType} />);
 }
 
-export default _Game;
+export default GameWithStore;
 
